@@ -30,10 +30,13 @@
 
     <body>
 
-        @foreach($users as $user)
+        <h1>Listings</h1><br>
+
+        @foreach($listings as $listing)
             <p>
-                {{$user}}
+                {{$listing}}
             </p>
+            <br>
         @endforeach
 
     </body>

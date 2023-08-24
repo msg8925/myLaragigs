@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Validation\Rule;
 
 //use App\Models\User;
 
@@ -31,4 +32,36 @@ class ListingController extends Controller
                 'listing' => $listing
             ]);
         }
+
+        //public function index(User $users) {
+        public function create() {
+
+            return view('listings.create', [
+
+            ]);
+        }
+
+        //public function index(User $users) {
+        public function store(Request $request) {
+
+            $formFields = $request->validate([
+                'title' => 'required',
+                'company' => ['required', Rule::unique('listings', 'company')],
+                'location' => 'required',
+                'website' => 'required',
+                'email' => ['required', 'email'],
+                'tags' => 'required',
+                'description' => 'required'
+            ]);
+
+            $formFields['user_id'] = 1;
+            //$formFields['user_id'] = auth()->id();
+
+            // Saves data to database
+            Listing::create($formFields);
+
+            return redirect('/');
+            
+        }
+
 }

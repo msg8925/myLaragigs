@@ -13,7 +13,7 @@ class ListingController extends Controller
 {
     //
     //public function index(User $users) {
-    public function index(Listing $listing) {
+    public function index() {
 
         return view('listings.index', [
 
@@ -21,4 +21,14 @@ class ListingController extends Controller
             'listings' => Listing::all()
         ]);
     }
+
+    //public function index(User $users) {
+        public function show(Listing $listing) {
+
+            return view('listings.show', [
+    
+                //'users' => $users
+                'listing' => $listing
+            ]);
+        }
 }

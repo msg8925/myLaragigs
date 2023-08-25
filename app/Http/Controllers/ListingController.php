@@ -64,4 +64,41 @@ class ListingController extends Controller
             
         }
 
+
+        //public function index(User $users) {
+        public function edit(Listing $listing) {
+
+            return view('listings.edit', [
+
+                'listing' => $listing
+            ]);
+        }
+
+
+        //public function index(User $users) {
+        public function update(Request $request, Listing $listing) {
+
+            //dd($request);
+
+            $formFields = $request->validate([
+                'title' => 'required',
+                'company' => 'required',
+                'location' => 'required',
+                'website' => 'required',
+                'email' => ['required', 'email'],
+                'tags' => 'required',
+                'description' => 'required'
+            ]);
+
+            //$formFields['id'] = 1;
+            
+            // Saves data to database
+            $listing->update($formFields);
+
+
+            return redirect('/');
+        }
+
+        
+
 }

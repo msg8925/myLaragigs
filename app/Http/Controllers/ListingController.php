@@ -44,6 +44,8 @@ class ListingController extends Controller
         //public function index(User $users) {
         public function store(Request $request) {
 
+            //dd($request);
+
             $formFields = $request->validate([
                 'title' => 'required',
                 'company' => ['required', Rule::unique('listings', 'company')],
@@ -54,8 +56,9 @@ class ListingController extends Controller
                 'description' => 'required'
             ]);
 
-            $formFields['user_id'] = 1;
-            //$formFields['user_id'] = auth()->id();
+            //$formFields['user_id'] = 6;
+            $formFields['user_id'] = auth()->id();
+            
 
             // Saves data to database
             Listing::create($formFields);
@@ -99,6 +102,17 @@ class ListingController extends Controller
             return redirect('/');
         }
 
-        
+        // Delete Listing
+    public function destroy(Listing $listing) {
+
+        // Make sure logged in user is owner
+        if($listing->user_id != auth()->id()) {
+
+            abort(403, 'Unauthorized Action');
+        }
+
+        $listing->delete();
+        return redirect('/');
+    }
 
 }

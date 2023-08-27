@@ -13,8 +13,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Uncomment and run "php artisan db:seed" to create dummy listings and/or users
-        //\App\Models\User::factory(10)->create();
-        //\App\Models\Listing::factory(10)->create();
+        \App\Models\User::factory(10)->create();
+        \App\Models\Listing::factory(10)->create([
+
+            'user_id' => 1
+        ]);
         
         
         // \App\Models\User::factory()->create([
